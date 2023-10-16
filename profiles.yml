@@ -1,4 +1,4 @@
-xyz:
+meta:
   target: dev
   outputs:
     dev:
