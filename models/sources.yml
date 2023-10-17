@@ -1,10 +1,22 @@
 version: 2
 
 sources:
-  - name: crosschain
-    database: "{{ 'crosschain' if target.database == 'xyz' else 'crosschain_dev' }}"
+  - name: crosschain_core
+    database: crosschain
     schema: core
     tables:
-      - name: dim_date_hours
-      - name: address_tags
-      - name: dim_dates
+      - name: dim_contracts
+      - name: dim_evm_event_abis
+      - name: dim_labels
+      - name: dim_tags
+  - name: crosschain_ens
+    database: crosschain
+    schema: ens
+    tables:
+      - name: ez_ens_domains
+  - name: crosschain_price
+    database: crosschain
+    schema: price
+    tables:
+      - name: dim_asset_metadata
+      - name: ez_asset_metadata

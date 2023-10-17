@@ -1,12 +1,12 @@
-name: dbt_run_dev_refresh
-run-name: dbt_run_dev_refresh
+name: dbt_run_daily
+run-name: dbt_run_daily
 
 on:
   workflow_dispatch:
   schedule:
-    # Runs "at 9:00 UTC" (see https://crontab.guru)
-    - cron: '0 9 * * *'
-    
+    # At 08:15 daily (see https://crontab.guru)
+    - cron: '15 8 * * *'
+
 env:
   USE_VARS: "${{ vars.USE_VARS }}"
   DBT_PROFILES_DIR: "${{ vars.DBT_PROFILES_DIR }}"
@@ -27,8 +27,9 @@ jobs:
   called_workflow_template:
     uses: FlipsideCrypto/analytics-workflow-templates/.github/workflows/dbt_run_template.yml@main
     with:
-      dbt_command: >
-        dbt run-operation run_sp_create_prod_clone
+      dbt_command: |
+         dbt run -m models/gold
+         
       environment: workflow_prod
       warehouse: ${{ vars.WAREHOUSE }}
     secrets: inherit 
